@@ -47,24 +47,12 @@ namespace Tuteexy.Service
                 EmailConfirmed = true,
                 PhoneNumber = "+8801765263343",
                 CreatedDate=DateTime.Now
-            }, "Admin123!").GetAwaiter().GetResult();
+            }, "Xyz12345!").GetAwaiter().GetResult();
 
             ApplicationUser user = _db.ApplicationUsers.Where(u => u.Email == "admin@titan.com").FirstOrDefault();
 
             _userManager.AddToRoleAsync(user, SD.Role_Admin).GetAwaiter().GetResult();
 
-            _userManager.CreateAsync(new ApplicationUser
-            {
-                UserName = "azmainfiaz@gmail.com",
-                Email = "azmainfiaz@gmail.com",
-                EmailConfirmed = true,
-                PhoneNumber = "+8801765263343",
-                CreatedDate = DateTime.Now
-            }, "Admin123!").GetAwaiter().GetResult();
-
-            user = _db.ApplicationUsers.Where(u => u.Email == "azmainfiaz@gmail.com").FirstOrDefault();
-
-            _userManager.AddToRoleAsync(user, SD.Role_User).GetAwaiter().GetResult();
 
         }
     }
