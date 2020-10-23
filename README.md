@@ -11,7 +11,7 @@ In this template, you can found a boilerplate for your next web API development.
 If you like or are using this project to learn or start your solution, please give it a [star](https://github.com/DevOpsHasan/Dot-Net-5-WebApi-JWT). Thanks!
 
 ## Technology Areas?
-* Bankend: C#, .NET 5, Entity Framework
+* Bankend: C#, .NET 5, Entity Framework, Dapper
 * Database: Microsoft SQL Server
 * IDE: Visual Studio 
 
