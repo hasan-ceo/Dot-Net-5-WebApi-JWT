@@ -40,8 +40,8 @@ namespace Tuteexy.Api.Service
             var AuthClaims = new List<Claim>
             {
                 new Claim("email", user.Email),
-                new Claim("uid", user.Id),
-                new Claim("url", isUserAdmin == true ? "Admin" : "User"),
+                new Claim("userid", user.Id),
+                new Claim("role", isUserAdmin == true ? "Admin" : "User"),
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["AuthSettings:Key"]));
@@ -296,7 +296,7 @@ namespace Tuteexy.Api.Service
 
                 if (jwtSecurityToken != null && jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
                 {
-                    var userId = principle.FindFirst("uid")?.Value;
+                    var userId = principle.FindFirst("userid")?.Value;
 
                     return await _userManager.Users.Where(u => u.Id == userId).FirstOrDefaultAsync();
                 }
