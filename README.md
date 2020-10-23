@@ -2,7 +2,7 @@
 In this template, you can found a boilerplate for your next web API development. Its include
 * JWT Access and Refresh Token
 * Authentication and Authorization
-* Repository Pattern
+* Generic Repository Pattern
 * Unit of Work
 * Database Initializer
 * Swagger
