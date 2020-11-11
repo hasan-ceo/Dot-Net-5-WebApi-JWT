@@ -36,12 +36,20 @@ namespace Tuteexy.Api.Service
         {
             
             var isUserAdmin = await _userManager.IsInRoleAsync(user,SD.Role_Admin);
-  
-            var AuthClaims = new List<Claim>
-            {
-                new Claim("email", user.Email),
-                new Claim("userid", user.Id),
-                new Claim("role", isUserAdmin == true ? "Admin" : "User"),
+
+            List<Claim> AuthClaims = new List<Claim>() {
+            new Claim (JwtRegisteredClaimNames.Jti,
+                Guid.NewGuid().ToString()),
+
+            new Claim (JwtRegisteredClaimNames.Email,
+                user.Email),
+
+            new Claim (JwtRegisteredClaimNames.Sub,
+                user.Id.ToString()),
+			
+			// Add the ClaimType Role which carries the Role of the user
+			new Claim (ClaimTypes.Role, isUserAdmin == true ? SD.Role_Admin : SD.Role_User),
+            new Claim("url", isUserAdmin == true ? SD.Role_Admin : SD.Role_User)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["AuthSettings:Key"]));
@@ -296,7 +304,7 @@ namespace Tuteexy.Api.Service
 
                 if (jwtSecurityToken != null && jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
                 {
-                    var userId = principle.FindFirst("userid")?.Value;
+                    var userId = principle.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
                     return await _userManager.Users.Where(u => u.Id == userId).FirstOrDefaultAsync();
                 }
